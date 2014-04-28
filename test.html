@@ -1,0 +1,51 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Confetti Test</title>
+		<style type="text/css">
+		html, body {
+			min-height: 100%;
+			height: 100%;
+		}
+
+		.particle {
+			width: 15px;
+			height: 15px;
+			z-index: 1;
+			position: absolute;
+			border-radius: 15px;
+			-webkit-transition: all .5s;
+		}
+
+		.particle.green {
+			background: coral;
+		}
+		
+		.particle.blue {
+			background: cornflowerblue;
+		}
+		</style>
+	</head>
+	<body>
+		<p>Hello world! This is HTML5 Boilerplate.</p>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="confetti.js"></script>
+		<script type="text/javascript">
+
+		$(function() {
+			
+			$("body").on("click", function(event) {
+				$(this).confetti({
+					range:   {
+						x: [-100, 100],
+						y: [-750, 0],
+					},
+					origin: [event.clientX, event.clientY]
+				});
+			})
+		})
+		</script>
+	</body>
+</html>
