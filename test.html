@@ -14,9 +14,23 @@
 			width: 15px;
 			height: 15px;
 			z-index: 1;
-			position: absolute;
+			position: relative;
 			border-radius: 15px;
-			-webkit-transition: all .5s;
+			-webkit-transition: all 5s;
+		}
+
+		.new {
+			position: relative;
+			-webkit-transition: all 3s;
+			-webkit-animation-iteration-count: infinite;
+			-webkit-animation-direction: alternate;
+			-webkit-animation-timing-function: ease-in;
+			-webkit-animation-name: fall;
+		}
+
+		@-webkit-keyframes fall {
+			from { -webkit-transform: translateY(0px); }
+			to { -webkit-transform: translateY(2000px); }
 		}
 
 		.particle.green {
@@ -42,6 +56,7 @@
 						x: [-100, 100],
 						y: [-750, 0],
 					},
+					count: [75, 100],
 					origin: [event.clientX, event.clientY]
 				});
 			})

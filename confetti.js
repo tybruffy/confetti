@@ -18,9 +18,9 @@
 		_create: function( $el, options ) {
 			this.options    = $.extend(true, {}, this.defaults, options);
 			this.$particles = $()
-
-			this.count  = this.random(this.options.count)
-			this.uuid   = this.uuid + new Date().getTime()			
+			this.$el        = $el
+			this.count      = this.random(this.options.count)
+			this.uuid       = this.uuid + new Date().getTime()			
 
 			this.grab()
 			this.throw()
@@ -32,6 +32,19 @@
 
 		get_class: function() {
 			return this.options.classes[ this.random([0, this.options.classes.length-1]) ]
+		},
+
+		_setTiming: function() {
+			var timing = parseFloat( $(".particle").css("transition-duration") )
+			if (!timing) {
+				trans = $(".particle").css("transition")
+				$.each(trans, function(i, prop) {
+					if (!isNaN(parseFloat( prop )) ) {
+						timing = parseFloat(settings[i]);
+					}
+				})
+			}
+			this.timing = timing * 1000;
 		},
 
 		grab: function() {
@@ -47,34 +60,37 @@
 		},
 
 		_getCSS: function() {
-			if (typeof this.options.css === "function")  {
-				return this.options.css.call(this.$el, this.options.origin, this.options.range.x, this.options.range.y, this.random);
-			}
-
 			var x = this.random(this.options.range.x)
 			,	y = this.random(this.options.range.y)
 			,	translate = "translate(" + x + "px, " + y + "px)"
-
-			return {
+			,	css = {
 				"-webkit-transform": translate,
 				   "-moz-transform": translate,
 				    "-ms-transform": translate,
 				     "-o-transform": translate,
 				        "transform": translate,
-							opacity: .5,
+							opacity: 0,
 			}
+
+			if (typeof this.options.css === "function")  {
+				return this.options.css.call(this.$el, this.options.origin, [x, y], css);
+			}
+
+			return css
 		},
 
 		throw: function() {
 			var self = this;
-			this.$particles.appendTo("body").each(function() {
+			this.$particles.wrapAll('<div class="new"/>').parent().appendTo("body");
+			this._setTiming()
+			this.$particles.each(function() {
 				var $this = $(this)
 				,	toss  = function() { $this.css(self._getCSS()); }
 				,	clean = function() { $this.remove(); }
 
 				setTimeout(toss);
-				setTimeout(clean, 500);
 			});
+				// setTimeout(clean, self.timing);
 		}
 	}
 
