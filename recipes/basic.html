@@ -22,8 +22,6 @@
 			position: absolute;
 			border-radius: 15px;
 			-webkit-transition: -webkit-transform 3s linear, 
-								left 2s cubic-bezier(0.895, 0.03, 0.685, 0.22), 
-								top 1s cubic-bezier(0.895, 0.03, 0.685, 0.22), 
 								opacity .5s linear 2.5s;
 		}
 
@@ -54,8 +52,6 @@
 					origin: [event.clientX, event.clientY],
 					css: function(origin, coords, css) {
 						return $.extend(css, {
-							// left: origin[0] + (coords[0]*2),
-							// top: origin[1] - (coords[1]/4),
 							opacity: 0,
 						})
 					}
