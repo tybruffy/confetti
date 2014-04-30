@@ -8,29 +8,23 @@
 		html, body {
 			min-height: 100%;
 			height: 100%;
+			overflow: hidden;
+		}
+
+		*::selection {
+			background: transparent;
 		}
 
 		.particle {
 			width: 15px;
 			height: 15px;
 			z-index: 1;
-			position: relative;
+			position: absolute;
 			border-radius: 15px;
-			-webkit-transition: all 5s;
-		}
-
-		.new {
-			position: relative;
-			-webkit-transition: all 3s;
-			-webkit-animation-iteration-count: infinite;
-			-webkit-animation-direction: alternate;
-			-webkit-animation-timing-function: ease-in;
-			-webkit-animation-name: fall;
-		}
-
-		@-webkit-keyframes fall {
-			from { -webkit-transform: translateY(0px); }
-			to { -webkit-transform: translateY(2000px); }
+			-webkit-transition: -webkit-transform 3s linear, 
+								left 2s cubic-bezier(0.895, 0.03, 0.685, 0.22), 
+								top 1s cubic-bezier(0.895, 0.03, 0.685, 0.22), 
+								opacity .5s linear 2.5s;
 		}
 
 		.particle.green {
@@ -40,10 +34,10 @@
 		.particle.blue {
 			background: cornflowerblue;
 		}
+
 		</style>
 	</head>
 	<body>
-		<p>Hello world! This is HTML5 Boilerplate.</p>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 		<script src="confetti.js"></script>
 		<script type="text/javascript">
@@ -53,11 +47,18 @@
 			$("body").on("click", function(event) {
 				$(this).confetti({
 					range:   {
-						x: [-100, 100],
-						y: [-750, 0],
+						x: [-750, 750],
+						y: [-750, 750],
 					},
-					count: [75, 100],
-					origin: [event.clientX, event.clientY]
+					count: [10, 20],
+					origin: [event.clientX, event.clientY],
+					css: function(origin, coords, css) {
+						return $.extend(css, {
+							// left: origin[0] + (coords[0]*2),
+							// top: origin[1] - (coords[1]/4),
+							opacity: 0,
+						})
+					}
 				});
 			})
 		})

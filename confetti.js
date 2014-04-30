@@ -69,7 +69,6 @@
 				    "-ms-transform": translate,
 				     "-o-transform": translate,
 				        "transform": translate,
-							opacity: 0,
 			}
 
 			if (typeof this.options.css === "function")  {
@@ -81,7 +80,7 @@
 
 		throw: function() {
 			var self = this;
-			this.$particles.wrapAll('<div class="new"/>').parent().appendTo("body");
+			this.$particles.appendTo("body");
 			this._setTiming()
 			this.$particles.each(function() {
 				var $this = $(this)
@@ -89,8 +88,8 @@
 				,	clean = function() { $this.remove(); }
 
 				setTimeout(toss);
+				setTimeout(clean, self.timing);
 			});
-				// setTimeout(clean, self.timing);
 		}
 	}
 
