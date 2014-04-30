@@ -1,0 +1,66 @@
+<!doctype html>
+<html class="no-js">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Confetti Test</title>
+		<style type="text/css">
+		html, body {
+			min-height: 100%;
+			height: 100%;
+			overflow: hidden;
+		}
+
+		*::selection {
+			background: transparent;
+		}
+
+		.particle {
+			width: 15px;
+			height: 15px;
+			z-index: 1;
+			position: absolute;
+			border-radius: 15px;
+			-webkit-transition: -webkit-transform 3s linear, 
+								left 2s cubic-bezier(0.895, 0.03, 0.685, 0.22) 1s, 
+								top 1s cubic-bezier(0.55, 0.055, 0.675, 0.19) 2s, 
+								opacity .5s linear 2.5s;
+		}
+
+		.particle.green {
+			background: coral;
+		}
+		
+		.particle.blue {
+			background: cornflowerblue;
+		}
+
+		</style>
+	</head>
+	<body>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+		<script src="../confetti.js"></script>
+		<script type="text/javascript">
+		$(function() {
+			
+			$("body").on("click", function(event) {
+				$(this).confetti({
+					range:   {
+						x: [-100, 100],
+						y: [-750, -500],
+					},
+					count: [10, 10],
+					origin: [event.clientX, event.clientY],
+					css: function(origin, coords, css) {
+						return $.extend(css, {
+							left: origin[0] - 200,
+							top: origin[1] + 200,
+							opacity: 0,
+						})
+					}
+				});
+			})
+		})
+		</script>
+	</body>
+</html>
